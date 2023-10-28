@@ -9,4 +9,8 @@ if [[ $argc -ge 1 ]]; then
     pkill -RTMIN+5 dwmblocks 2>/dev/null
 fi
 
-printf "󰃛   %d\n" "$(light)"
+printf "󰛨   %d" "$(light)"
+
+case $BLOCK_BUTTON in 
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

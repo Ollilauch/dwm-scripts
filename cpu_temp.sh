@@ -1,15 +1,9 @@
 #!/bin/sh
 
-ICONn="  " # icon for normal temperatures
-ICONc="  " # icon for critical temperatures
+temp="$(sensors $1 | awk '/^Package id 0/ {print $4}'  | sed 's/+//')"
 
-crit=70 # critical temperature
+printf "CPU Temp: %s" "$temp"
 
-read -r temp </sys/class/thermal/thermal_zone0/temp
-temp="${temp%???}"
-
-if [ "$temp" -lt "$crit" ] ; then
-    printf "$ICONn%s°C" "$temp"
-else
-    printf "$ICONc%s°C" "$temp"
-fi
+case $BLOCK_BUTTON in
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
